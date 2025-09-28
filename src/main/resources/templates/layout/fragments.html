@@ -1,0 +1,22 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Navbar Fragment -->
+<nav th:fragment="navbar" class="navbar">
+    <div class="navbar-brand">
+        <ul class="navbar-menu">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/}">Home</a>
+            </li>
+            <li>
+                <a class="nav-link" th:href="@{/store}">Store</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+
+<!-- Footer Fragment -->
+<footer th:fragment="footer" class="footer">
+    <div class="footer-content">
+        <p>&copy; 2025 Warehouse app</p>
+    </div>
+</footer>
