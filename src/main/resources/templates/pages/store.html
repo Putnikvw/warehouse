@@ -1,19 +1,27 @@
-<html
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{layout/index}">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/index}">
 <body>
 <!-- Main Content -->
 <div layout:fragment="content">
-    <h2>Welcome AI Warehouse</h2>
-    <p>This is store page</p>
+    <h1 style="font-size: var(--text-2xl); margin-bottom: var(--space-1-5);">
+        List of data
+    </h1>
 
-    <table>
-        <th>
-            <thead>Test</thead>
-        </th>
+    <table class="token-table">
+        <thead>
         <tr>
-            <td>One</td>
+            <th>Product</th>
+            <th>Price ($)</th>
+            <th>Stock</th>
         </tr>
+        </thead>
+        <tbody>
+        <tr>Test</tr>
+<!--        <tr th:each="p : ${products}">-->
+<!--            <td th:text="${p['name']}"></td>-->
+<!--            <td th:text="${p['price']}"></td>-->
+<!--            <td th:text="${p['stock']}"></td>-->
+<!--        </tr>-->
+        </tbody>
     </table>
 </div>
 </body>
