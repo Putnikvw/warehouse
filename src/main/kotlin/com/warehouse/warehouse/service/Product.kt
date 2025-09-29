@@ -1,8 +1,6 @@
 package com.warehouse.warehouse.service
 
-data class ProductDto (
+data class Product (
     val id: Long,
-    val title: String,
-
-
+    val title: String?
 )
