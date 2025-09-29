@@ -6,7 +6,7 @@ import org.springframework.web.client.RestClient
 @Service
 class WebApiService(private val restClientBuilder: RestClient.Builder) {
 
-    private val restClient = restClientBuilder.baseUrl("https://fame.no").build();
+    private val restClient = restClientBuilder.baseUrl("https://famme.no").build();
 
     fun fetchData(): String? {
         return restClient.get()
