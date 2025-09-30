@@ -1,0 +1,18 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="table">
+    <table>
+        <thead>
+        <tr>
+            <th th:each="col : ${columns}" th:text="${col}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.title}"></td>
+            <td th:text="${product.handle}"></td>
+            <td th:text="${product.productType}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>

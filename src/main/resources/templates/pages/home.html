@@ -2,15 +2,20 @@
 <body>
 <!-- Main Content -->
 <div layout:fragment="content" class="flex">
-    <div class="grid">
-        <h2>Welcome, AI Warehouse test page</h2>
-        <div class="grid-cols-2">
-            <p>This page as a welcome page</p>
-            <wa-button hx-get="/store" hx-target="#result" hx-swap="innerHTML">Show data</wa-button>
-        </div>
-    </div>
+    <div class="container">
+        <h1>Products</h1>
 
-    <!-- HTMX Example -->
+        <button
+                class="btn btn-primary"
+                hx-get="/products"
+                hx-target="#product-table"
+                hx-swap="innerHTML">
+            <i class="fas fa-download"></i> Load Products
+        </button>
+
+        <!-- Table will be dynamically inserted here -->
+        <div id="product-table" style="margin-top: 1rem;"></div>
+    </div>
 </div>
 </body>
 </html>

@@ -3,6 +3,11 @@
    ======================================== */
 
 /* ================== BUTTONS ================== */
+@import url('tokens/_colors.css');
+@import url('tokens/_radius.css');
+@import url('tokens/_shadows.css');
+@import url('tokens/_spacing.css');
+@import url('tokens/_typography.css');
 
 .btn {
     display: inline-flex;
@@ -364,8 +369,12 @@
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* ================== RESPONSIVE UTILITIES ================== */
@@ -380,44 +389,125 @@
 }
 
 @media (min-width: 640px) {
-    .container { max-width: 640px; padding-left: var(--space-6); padding-right: var(--space-6); }
+    .container {
+        max-width: 640px;
+        padding-left: var(--space-6);
+        padding-right: var(--space-6);
+    }
 }
 
 @media (min-width: 768px) {
-    .container { max-width: 768px; }
+    .container {
+        max-width: 768px;
+    }
+
+    .site-header {
+        padding: var(--space-6) var(--space-4);
+    }
+
+    .site-header h2 {
+        font-size: var(--text-2xl)
+    }
 }
 
 @media (min-width: 1024px) {
-    .container { max-width: 1024px; padding-left: var(--space-8); padding-right: var(--space-8); }
+    .container {
+        max-width: 1024px;
+        padding-left: var(--space-8);
+        padding-right: var(--space-8);
+    }
 }
 
 @media (min-width: 1280px) {
-    .container { max-width: 1280px; }
+    .container {
+        max-width: 1280px;
+    }
 }
+
+@media (max-width: 480px) {
+    .site-header {
+        padding: var(--space-4) var(--space-3);
+    }
+
+    .site-header h2 {
+        font-size: var(--text-xl);
+    }
+}
+
 
 /* ================== LAYOUT UTILITIES ================== */
 
-.flex { display: flex; }
-.flex-col { flex-direction: column; }
-.items-center { align-items: center; }
-.justify-center { justify-content: center; }
-.justify-between { justify-content: space-between; }
-.gap-2 { gap: var(--space-2); }
-.gap-4 { gap: var(--space-4); }
-.gap-6 { gap: var(--space-6); }
+.flex {
+    display: flex;
+}
 
-.grid { display: grid; }
-.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.flex-col {
+    flex-direction: column;
+}
 
-.w-full { width: 100%; }
-.h-full { height: 100%; }
+.items-center {
+    align-items: center;
+}
 
-.block { display: block; }
-.inline-block { display: inline-block; }
-.hidden { display: none; }
+.justify-center {
+    justify-content: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.gap-2 {
+    gap: var(--space-2);
+}
+
+.gap-4 {
+    gap: var(--space-4);
+}
+
+.gap-6 {
+    gap: var(--space-6);
+}
+
+.grid {
+    display: grid;
+}
+
+.grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.w-full {
+    width: 100%;
+}
+
+.h-full {
+    height: 100%;
+}
+
+.block {
+    display: block;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.hidden {
+    display: none;
+}
 
 .token-table {
     width: 80%;
@@ -427,7 +517,7 @@
     background: var(--color-black);
     border-radius: var(--radius-md);
     overflow: hidden;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .token-table th, .token-table td {
@@ -450,4 +540,39 @@
 h1 {
     text-align: center;
     color: var(--color-primary-300);
+}
+
+.site-header h2 {
+    font-size: 50px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}
+
+/* Header Styles */
+.site-header {
+    width: 100%;
+    background-color: var(--bg-secondary); /* Light grey */
+    padding: var(--space-8) var(--space-6);
+    box-shadow: var(--color-secondary-800);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+table th, table td {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+table th {
+    background-color: #eee;
 }

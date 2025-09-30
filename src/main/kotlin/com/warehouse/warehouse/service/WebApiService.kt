@@ -1,6 +1,5 @@
 package com.warehouse.warehouse.service
 
-import com.warehouse.warehouse.service.data.Product
 import com.warehouse.warehouse.service.data.ProductResponse
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
@@ -16,7 +15,7 @@ class WebApiService(restClientBuilder: RestClient.Builder) {
 
     private val restClient = restClientBuilder.baseUrl(BASE_URL).build();
 
-    fun fetchData(): List<Product> {
+    fun fetchData(): List<ProductResponse.Product> {
         val response = restClient.get()
             .uri(PRODUCT_PATH)
             .accept(MediaType.APPLICATION_JSON)

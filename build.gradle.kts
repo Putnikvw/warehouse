@@ -33,21 +33,17 @@ extra["springAiVersion"] = "1.0.2"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect")
     implementation("org.flywaydb:flyway-core")
     implementation("org.flywaydb:flyway-database-postgresql")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.mapstruct:mapstruct:1.6.3")
-    compileOnly("org.projectlombok:lombok")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
 }
 
 dependencyManagement {

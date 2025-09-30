@@ -1,12 +1,13 @@
 package com.warehouse.warehouse.controller
 
+import com.warehouse.warehouse.service.ProductService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.GetMapping
 
 @Controller
-class WarehouseController {
+class WarehouseController(private val service: ProductService) {
 
     @GetMapping
     fun home(model: Model): String {
@@ -14,10 +15,13 @@ class WarehouseController {
         return "pages/home"
     }
 
-    @GetMapping("/store")
-    fun store(model: Model): String {
-        model.addAttribute("activePage", "store")
-        return "pages/store"
+    @GetMapping("/products")
+    fun products(model: Model): String {
+        val products = service.getAll()
+        val columns = listOf("Title", "Handle", "Product Type")
+        model.addAttribute("columns", columns)
+        model.addAttribute("products", products)
+        return "layout/product-table"
     }
 
     @ExceptionHandler(NoSuchElementException::class)

@@ -1,49 +1,46 @@
 package com.warehouse.warehouse.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.warehouse.warehouse.persistance.entity.ProductEntity
-import com.warehouse.warehouse.persistance.entity.ProductItemEntity
-import com.warehouse.warehouse.service.data.Product
+import com.warehouse.warehouse.persistance.domain.ProductDao
+import com.warehouse.warehouse.persistance.domain.ProductItemDao
+import com.warehouse.warehouse.service.data.ProductResponse
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.stream.Collectors
 
 @Service
 @Transactional
-class WareHouseService(private val productTypeService: ProductTypeService) {
+class WareHouseService(private val productService: ProductService) {
 
-    fun saveInitialDataFromApi(data: List<Product>) {
+    companion object {
         val mapper = ObjectMapper()
-        val productTypes = data.stream().map { v -> v.productType }
-            .filter { p -> !p?.isEmpty()!! }
-            .collect(Collectors.toSet<String>())
-        productTypeService.saveAll(productTypes)
-        val pTypes = productTypeService.getAll().associate { it.name to it.id }
-        val products = data.stream()
-            .filter { v -> !v.productType.isEmpty() }
+    }
+
+    fun saveInitialDataFromApi(data: List<ProductResponse.Product>) {
+        val products = convertDataToProductDaoFromApi(data)
+        productService.saveAll(products)
+    }
+
+    private fun convertDataToProductDaoFromApi(data: List<ProductResponse.Product>): List<ProductDao> {
+        return data.stream()
             .map { d ->
-            ProductEntity(
-                d.id,
-                d.title,
-                d.handle,
-                d.createdAt,
-                d.publishedAt,
-                pTypes[d.productType]!!,
-                d.updatedAt,
-                null,
-                d.items.stream().map { i ->
-                    ProductItemEntity(
-                        i.id,
-                        i.title,
-                        i.price,
-                        i.taxable,
-                        mapper.writeValueAsString(i.featureImg),
-                        d.id,
-                        null
-                    )
-                }.toList()
-            )
-        }.toList()
-        print(products)
+                ProductDao(
+                    d.id,
+                    d.title,
+                    d.handle,
+                    d.productType,
+                    d.createdAt,
+                    d.updatedAt,
+                    d.items.stream().map { i ->
+                        ProductItemDao(
+                            i.id,
+                            i.title,
+                            i.price,
+                            i.taxable,
+                            mapper.writeValueAsString(i.featureImg),
+                            d.id,
+                        )
+                    }.toList()
+                )
+            }.toList()
     }
 }
