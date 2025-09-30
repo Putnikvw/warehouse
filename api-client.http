@@ -1,0 +1,4 @@
+### GET products list
+GET https://famme.no/products.json
+Content-Type: application/json
+###

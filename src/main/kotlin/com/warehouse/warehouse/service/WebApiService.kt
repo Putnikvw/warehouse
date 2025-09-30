@@ -1,17 +1,24 @@
 package com.warehouse.warehouse.service
 
+import com.warehouse.warehouse.service.data.Product
+import com.warehouse.warehouse.service.data.ProductResponse
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestClient
 
 @Service
-class WebApiService(private val restClientBuilder: RestClient.Builder) {
+class WebApiService(restClientBuilder: RestClient.Builder) {
 
-    private val restClient = restClientBuilder.baseUrl("https://famme.no").build();
+    companion object {
+        const val BASE_URL = "https://famme.no"
+        const val PRODUCT_PATH = "/products.json"
+    }
+
+    private val restClient = restClientBuilder.baseUrl(BASE_URL).build();
 
     fun fetchData(): List<Product> {
         val response = restClient.get()
-            .uri("/products.json")
+            .uri(PRODUCT_PATH)
             .accept(MediaType.APPLICATION_JSON)
             .retrieve()
             .body(ProductResponse::class.java)
