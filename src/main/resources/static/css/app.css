@@ -259,7 +259,9 @@
     z-index: var(--z-50);
 }
 
-.modal {
+/* Center the modal and add padding */
+.custom-modal .modal-dialog {
+    margin: auto;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -272,6 +274,15 @@
     max-height: 90vh;
     overflow: auto;
     z-index: var(--z-50);
+}
+
+.custom-modal .modal-content {
+    padding: 15px;
+}
+
+/* Optional: make the backdrop darker */
+.modal-backdrop.show {
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-header {
@@ -561,10 +572,12 @@ h1 {
     max-width: 1200px;
     margin: 0 auto;
 }
+
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 1rem;
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-6);
 }
 
 table th, table td {
@@ -575,4 +588,26 @@ table th, table td {
 
 table th {
     background-color: #eee;
+}
+
+.pagination-controls {
+    margin-top: var(--space-4);
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    justify-content: space-between;
+}
+
+.pagination-controls .page-size-controls {
+    display: inline-block;
+    gap: var(--space-2);
+}
+
+.pagination-controls .page-size-controls #pageSize {
+    padding: 0 0 0 8px;
+    width: 40%;
+}
+
+.pagination-controls .pagination .page-counter {
+    margin: auto var(--space-2);
 }

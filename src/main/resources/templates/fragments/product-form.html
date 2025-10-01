@@ -1,0 +1,32 @@
+<div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <form hx-post="/products"
+                  hx-target="#products-table"
+                  hx-swap="outerHTML">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input id="title" name="title" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="handle" class="form-label">Handle</label>
+                        <input id="handle" name="handle" class="form-control">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
