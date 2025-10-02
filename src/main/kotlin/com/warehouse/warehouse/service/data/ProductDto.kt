@@ -1,10 +1,11 @@
 package com.warehouse.warehouse.service.data
 
 import java.math.BigDecimal
+import java.math.BigInteger
 import java.time.LocalDateTime
 
 data class ProductDto(
-    val id: Long,
+    val id: BigInteger,
     val title: String?,
     val handle: String?,
     val productType: String?,
@@ -12,7 +13,7 @@ data class ProductDto(
     val updatedAt: LocalDateTime?,
 ) {
     data class ProductItemDto(
-        val id: Long,
+        val id: BigInteger,
         val title: String,
         val price: BigDecimal,
         val taxable: Boolean,

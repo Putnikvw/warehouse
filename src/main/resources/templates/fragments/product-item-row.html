@@ -1,28 +1,31 @@
-<html>
-<div class="border rounded p-2 mb-3 product-item" id="row-1">
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="itemRow(index, item)" class="border rounded p-2 product-item">
     <div class="mb-3">
-        <input type="text" name="productItems[0].title" class="form-control" placeholder="Title">
+        <input type="text"
+               th:name="'productItems[0].title'"
+               th:value="${item.title}"
+               th:placeholder="Title">
     </div>
 
     <div class="row">
         <div class="col-6 mb-3">
-            <input type="number" step="0.01" name="productItems[0].price" class="form-control" placeholder="Price">
+            <input type="number" step="0.01" th:name="'productItems[0].price'"
+                   th:value="${item.price}" th:placeholder="Price">
         </div>
 
         <div class="col-6 d-flex align-items-center-custom">
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" name="productItems[0].taxable" value="true">
+                <input class="form-check-input" type="checkbox"
+                       th:name="'productItems[0].taxable'" th:checked="${item.taxable}">
                 <label class="form-check-label ms-2">Taxable</label>
             </div>
+            <div class="text-end">
+                <button type="button"
+                        onclick="this.closest('.product-item').remove()"
+                        class="btn btn-sm btn-outline-danger">
+                    <i class="fa fa-trash"></i>X
+                </button>
+            </div>
         </div>
-    </div>
-
-    <!-- Remove button -->
-    <div class="text-end">
-        <button type="button"
-                class="btn btn-sm btn-outline-danger"
-                onclick="this.closest('div[id^=row-]').remove(); updateIndices();">
-            <i class="fa fa-trash"></i> Remove
-        </button>
     </div>
 </div>

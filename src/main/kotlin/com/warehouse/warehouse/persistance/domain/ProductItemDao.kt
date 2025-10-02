@@ -1,15 +1,16 @@
 package com.warehouse.warehouse.persistance.domain
 
 import java.math.BigDecimal
+import java.math.BigInteger
 
 data class ProductItemDao(
 
-    val id: Long,
+    val id: BigInteger,
     val title: String,
     val price: BigDecimal,
     val taxable: Boolean,
     val featureImg: String,
-    val productId: Long
+    val productId: BigInteger
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

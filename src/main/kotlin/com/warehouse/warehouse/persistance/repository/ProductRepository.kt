@@ -4,6 +4,8 @@ import com.warehouse.warehouse.persistance.domain.ProductDao
 import com.warehouse.warehouse.persistance.domain.ProductItemDao
 import org.springframework.jdbc.core.simple.JdbcClient
 import org.springframework.stereotype.Repository
+import java.math.BigInteger
+import java.util.*
 
 @Repository
 class ProductRepository(val jdbc: JdbcClient) {
@@ -14,7 +16,7 @@ class ProductRepository(val jdbc: JdbcClient) {
         }
     }
 
-    fun save(product: ProductDao): Long {
+    fun save(product: ProductDao): BigInteger {
         val newId = jdbc.sql(
             """
             INSERT INTO product(id, title, handle, product_type)
@@ -25,7 +27,7 @@ class ProductRepository(val jdbc: JdbcClient) {
             .param("title", product.title)
             .param("handle", product.handle)
             .param("productType", product.productType)
-            .query(Long::class.java)
+            .query(BigInteger::class.java)
             .single()
 
         // Save child items if present
@@ -42,7 +44,7 @@ class ProductRepository(val jdbc: JdbcClient) {
             """
         ).query { rs, _ ->
             ProductDao(
-                id = rs.getLong("id"),
+                id = rs.getLong("id").toBigInteger(),
                 title = rs.getString("title"),
                 handle = rs.getString("handle"),
                 productType = rs.getString("product_type"),
@@ -67,7 +69,21 @@ class ProductRepository(val jdbc: JdbcClient) {
         return null
     }
 
+    fun getLastProductId(): Optional<BigInteger> {
+        val sql = "select max(id) from product"
+        return jdbc.sql(sql)
+            .query(BigInteger::class.java)
+            .optional();
+    }
+
     // ----- ProductItem CRUD -----
+
+    fun getLastProductItemId(): Optional<BigInteger> {
+        val sql = "select max(id) from product_item"
+        return jdbc.sql(sql)
+            .query(BigInteger::class.java)
+            .optional();
+    }
 
     fun findItemsByProductId(productId: Long): MutableList<ProductItemDao> =
         jdbc.sql("SELECT * FROM product_item WHERE product_id = :pid")

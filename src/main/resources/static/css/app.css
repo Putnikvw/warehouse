@@ -614,3 +614,6 @@ table th {
 .col-6 .d-flex .align-items-center-custom {
     align-items: end !important;
 }
+.text-end {
+    margin-left: auto;
+}

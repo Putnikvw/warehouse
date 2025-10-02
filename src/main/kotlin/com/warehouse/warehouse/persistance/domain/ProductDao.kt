@@ -1,9 +1,10 @@
 package com.warehouse.warehouse.persistance.domain
 
+import java.math.BigInteger
 import java.time.LocalDateTime
 
 data class ProductDao(
-    val id: Long,
+    val id: BigInteger,
     val title: String?,
     val handle: String?,
     val productType: String?,

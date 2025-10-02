@@ -1,12 +1,14 @@
 package com.warehouse.warehouse.service
 
 import com.warehouse.warehouse.controller.model.PageableWrapper
+import com.warehouse.warehouse.controller.model.ProductModel
 import com.warehouse.warehouse.persistance.domain.ProductDao
 import com.warehouse.warehouse.persistance.repository.ProductRepository
 import com.warehouse.warehouse.service.convertor.ProductConvertor
 import com.warehouse.warehouse.service.data.ProductDto
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.math.BigInteger
 
 @Service
 @Transactional
@@ -16,6 +18,22 @@ class ProductService(private val repo: ProductRepository, private val convertor:
         val savedProductIds = repo.findAll().map { it.id }.toList()
         val toSave = products.filter { !savedProductIds.contains(it.id) }.toList()
         repo.saveAll(toSave.toList())
+    }
+
+    fun saveModel(product: ProductModel) {
+        val lastId = repo.getLastProductId()
+        if (lastId.isPresent) {
+            val newId = lastId.get().add(BigInteger.ONE)
+            val productDao = convertor.toCreateProductDao(product, newId)
+            val lastProductItemId = repo.getLastProductItemId()
+            if (lastProductItemId.isPresent) {
+                var newProductItemId = lastProductItemId.get()
+                val items = convertor.toProductItemDao(product.productItems, newProductItemId)
+                productDao.productItems.addAll(items)
+            }
+            save(productDao)
+        }
+
     }
 
     fun save(productDao: ProductDao) {

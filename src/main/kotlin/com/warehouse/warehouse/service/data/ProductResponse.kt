@@ -3,13 +3,14 @@ package com.warehouse.warehouse.service.data
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.math.BigDecimal
+import java.math.BigInteger
 import java.time.LocalDateTime
 
 data class ProductResponse(
     val products: List<Product>
 ) {
     data class Product(
-        val id: Long,
+        val id: BigInteger,
         val title: String?,
         val handle: String?,
 
@@ -30,7 +31,7 @@ data class ProductResponse(
         val items: List<ProductItem>
     ) {
         data class ProductItem(
-            val id: Long,
+            val id: BigInteger,
             val title: String,
             val price: BigDecimal,
             val taxable: Boolean,
