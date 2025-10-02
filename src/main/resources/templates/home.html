@@ -8,14 +8,14 @@
 
         <button
                 class="btn btn-primary"
-                hx-get="/products"
+                hx-get="/products/table"
                 hx-target="#product-table"
                 hx-swap="innerHTML">
             <i class="fas fa-download"></i> Load Products
         </button>
 
         <!--Show modal form-->
-        <div id="modal-container" style="position: absolute; top:50%; left: 50%"></div>
+        <div id="modal-container"></div>
 
         <!-- Table will be dynamically inserted here -->
         <div id="product-table" style="margin-top: 1rem;"></div>

@@ -611,3 +611,6 @@ table th {
 .pagination-controls .pagination .page-counter {
     margin: auto var(--space-2);
 }
+.col-6 .d-flex .align-items-center-custom {
+    align-items: end !important;
+}

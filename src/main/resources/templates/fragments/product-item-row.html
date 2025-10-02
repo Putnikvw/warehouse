@@ -1,0 +1,28 @@
+<html>
+<div class="border rounded p-2 mb-3 product-item" id="row-1">
+    <div class="mb-3">
+        <input type="text" name="productItems[0].title" class="form-control" placeholder="Title">
+    </div>
+
+    <div class="row">
+        <div class="col-6 mb-3">
+            <input type="number" step="0.01" name="productItems[0].price" class="form-control" placeholder="Price">
+        </div>
+
+        <div class="col-6 d-flex align-items-center-custom">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" name="productItems[0].taxable" value="true">
+                <label class="form-check-label ms-2">Taxable</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remove button -->
+    <div class="text-end">
+        <button type="button"
+                class="btn btn-sm btn-outline-danger"
+                onclick="this.closest('div[id^=row-]').remove(); updateIndices();">
+            <i class="fa fa-trash"></i> Remove
+        </button>
+    </div>
+</div>
