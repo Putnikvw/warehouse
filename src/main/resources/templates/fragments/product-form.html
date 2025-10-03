@@ -1,39 +1,41 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" tabindex="-1" aria-hidden="true" id="productModal">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form th:action="@{/products}" th:object="${product}" method="post">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add Product</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <form th:action="@{/products}"
+                  th:object="${product}"
+                  hx-post="/products"
+                  hx-target="#productTable"
+                  hx-swap="innerHTML">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label>Title:</label><input type="text" th:field="*{title}" required>
+                    <label>Handle:</label><input type="text" th:field="*{handle}">
+                    <label>Product Type:</label><input type="text" th:field="*{productType}" required>
                 </div>
 
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label>Title:</label><input type="text" th:field="*{title}">
-                        <label>Handle:</label><input type="text" th:field="*{handle}">
-                        <label>Product Type:</label><input type="text" th:field="*{productType}">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6>Product Items</h6>
+                    </div>
+                    <div id="product-items" class="mt-2">
+                        <th:block th:each="item, iterStat : *{productItems}">
+                            <div th:replace="~{fragments/product-item-row :: itemRow(${iterStat.index}, ${item})}"></div>
+                        </th:block>
                     </div>
 
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h6>Product Items</h6>
-                        </div>
-                        <div id="product-items" class="mt-2">
-                            <th:block th:each="item, iterStat : *{productItems}">
-                                <div th:replace="~{fragments/product-item-row :: itemRow(${iterStat.index}, ${item})}"></div>
-                            </th:block>
-                        </div>
-
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                onclick="resetProductItems()">Cancel
-                        </button>
-                    </div>
                 </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
             </form>
 
         </div>

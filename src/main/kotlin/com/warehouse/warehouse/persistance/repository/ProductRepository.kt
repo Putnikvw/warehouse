@@ -73,7 +73,16 @@ class ProductRepository(val jdbc: JdbcClient) {
         val sql = "select max(id) from product"
         return jdbc.sql(sql)
             .query(BigInteger::class.java)
-            .optional();
+            .optional()
+    }
+
+    fun existProductByName(title: String): Boolean {
+        val sql = "select count(*) from product where title = :title"
+        val count = jdbc.sql(sql)
+            .param("title", title)
+            .query(Int::class.java)
+            .single()
+        return count > 0
     }
 
     // ----- ProductItem CRUD -----
@@ -82,7 +91,7 @@ class ProductRepository(val jdbc: JdbcClient) {
         val sql = "select max(id) from product_item"
         return jdbc.sql(sql)
             .query(BigInteger::class.java)
-            .optional();
+            .optional()
     }
 
     fun findItemsByProductId(productId: Long): MutableList<ProductItemDao> =

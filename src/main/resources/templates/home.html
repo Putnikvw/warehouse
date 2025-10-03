@@ -4,21 +4,36 @@
 <!-- Main Content -->
 <div layout:fragment="content" class="flex">
     <div class="container">
-        <h1>Products</h1>
+        <div class="buttons-row">
+            <div class=>
+                <button
+                        id="loadTableBtn"
+                        class="btn btn-primary"
+                        hx-get="/products/table"
+                        hx-target="#product-table"
+                        hx-swap="innerHTML">
+                    <i class="fas fa-download"></i> Load Products
+                </button>
+            </div>
+            <div class=>
+                <button id="addProductBtn"
+                        class="btn btn-success"
+                        hx-get="/products/add"
+                        hx-target="#modal-container"
+                        hx-swap="innerHTML"
+                        style="display: none">
+                    <i class="bi bi-plus-circle"></i>
+                    + Add Product
+                </button>
+            </div>
+        </div>
 
-        <button
-                class="btn btn-primary"
-                hx-get="/products/table"
-                hx-target="#product-table"
-                hx-swap="innerHTML">
-            <i class="fas fa-download"></i> Load Products
-        </button>
+        <!-- Table will be dynamically inserted here -->
+        <div id="product-table" style="margin-top: 1rem;"></div>
 
         <!--Show modal form-->
         <div id="modal-container"></div>
 
-        <!-- Table will be dynamically inserted here -->
-        <div id="product-table" style="margin-top: 1rem;"></div>
 
     </div>
 </div>

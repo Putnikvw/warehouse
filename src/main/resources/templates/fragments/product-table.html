@@ -1,17 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org">
-
-<div>
-    <button type="button"
-            class="btn btn-success"
-            hx-get="/products/add"
-            hx-target="#modal-container"
-            hx-swap="innerHTML">
-        <i class="bi bi-plus-circle"></i>
-        + Add Product
-    </button>
-
-</div>
-<div th:fragment="table">
+<div id="productTable">
     <table>
         <thead>
         <tr>

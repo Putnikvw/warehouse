@@ -11,37 +11,39 @@ document.addEventListener('htmx:afterSwap', (e) => {
             modal.show();
         }
     }
-});
+    if (e.target.id === 'product-table') {
+        const currentPage = e.detail.xhr.getResponseHeader('X-Current-Page');
+        const addBtn = document.getElementById('addProductBtn');
 
-// Listen for custom event from server to close modal
-document.body.addEventListener('closeModal', () => {
-    const modalEl = document.getElementById('productModal');
-    if (modalEl) {
-        const modal = bootstrap.Modal.getInstance(modalEl);
-        if (modal) {
-            modal.hide();
+        // Enable Add button only if table is loaded AND current page is 1
+        if (currentPage === '0') {
+            addBtn.disabled = false;
+            addBtn.style.display = 'inline-block';
+        } else {
+            addBtn.disabled = true;
+            addBtn.style.display = 'none';
         }
     }
 });
 
-function updateIndices() {
-    const rows = document.querySelectorAll('#product-items > .product-item');
+document.body.addEventListener('htmx:afterRequest', function(event) {
+    if (event.detail.successful) {
+        bootstrap.Modal.getInstance(document.getElementById('productModal')).hide();
+    }
+});
 
-    rows.forEach((row, index) => {
-        // loop through all inputs in the row
-        row.querySelectorAll('input').forEach(input => {
-            if (input.name) {
-                // always rebuild the name based on the field
-                const field = input.name.substring(input.name.lastIndexOf('.') + 1);
-                input.name = `productItems[${index}].${field}`;
-            }
-        });
+// Show Alerts
+document.body.addEventListener('showError', function(event) {
+    // Create Bootstrap alert
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'alert alert-danger alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3';
+    alertDiv.style.zIndex = '9999';
+    alertDiv.innerHTML = `
+            ${event.detail.message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+    document.body.appendChild(alertDiv);
 
-        // also give each row a unique id for removing
-        row.id = `row-${index}`;
-    });
-}
-
-function resetProductItems() {
-    document.getElementById('product-items').innerHTML = '';
-}
+    // Auto remove after 5 seconds
+    setTimeout(() => alertDiv.remove(), 5000);
+});

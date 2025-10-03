@@ -617,3 +617,8 @@ table th {
 .text-end {
     margin-left: auto;
 }
+.buttons-row {
+    display: flex;
+    gap: 1rem;            /* space between buttons */
+    margin-bottom: 1rem;  /* space below buttons */
+}

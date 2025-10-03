@@ -6,6 +6,7 @@ import com.warehouse.warehouse.persistance.domain.ProductDao
 import com.warehouse.warehouse.persistance.repository.ProductRepository
 import com.warehouse.warehouse.service.convertor.ProductConvertor
 import com.warehouse.warehouse.service.data.ProductDto
+import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.math.BigInteger
@@ -20,20 +21,33 @@ class ProductService(private val repo: ProductRepository, private val convertor:
         repo.saveAll(toSave.toList())
     }
 
-    fun saveModel(product: ProductModel) {
+    fun saveModel(product: ProductModel, response: HttpServletResponse) {
+        if (existProductByName(product.title!!)) {
+            response.setHeader(
+                "HX-Trigger",
+                """{"showError": {"message": "Product with title '${product.title}' already exists!"}}"""
+            )
+            return
+        }
         val lastId = repo.getLastProductId()
         if (lastId.isPresent) {
             val newId = lastId.get().add(BigInteger.ONE)
             val productDao = convertor.toCreateProductDao(product, newId)
-            val lastProductItemId = repo.getLastProductItemId()
-            if (lastProductItemId.isPresent) {
-                var newProductItemId = lastProductItemId.get()
-                val items = convertor.toProductItemDao(product.productItems, newProductItemId)
-                productDao.productItems.addAll(items)
-            }
+            saveProductItems(product, productDao)
             save(productDao)
         }
+    }
 
+    private fun saveProductItems(
+        product: ProductModel,
+        productDao: ProductDao
+    ) {
+        val lastProductItemId = repo.getLastProductItemId()
+        if (lastProductItemId.isPresent) {
+            val newProductItemId = lastProductItemId.get()
+            val items = convertor.toProductItemDao(product.productItems, newProductItemId)
+            productDao.productItems.addAll(items)
+        }
     }
 
     fun save(productDao: ProductDao) {
@@ -42,6 +56,10 @@ class ProductService(private val repo: ProductRepository, private val convertor:
 
     fun getAll(): List<ProductDao> {
         return repo.findAll()
+    }
+
+    fun existProductByName(title: String): Boolean {
+        return repo.existProductByName(title)
     }
 
     fun getAllPaginated(page: Int, pageSize: Int): PageableWrapper<ProductDto> {
