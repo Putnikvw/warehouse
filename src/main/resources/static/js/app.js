@@ -11,35 +11,22 @@ document.addEventListener('htmx:afterSwap', (e) => {
             modal.show();
         }
     }
-    if (e.target.id === 'product-table') {
-        const currentPage = e.detail.xhr.getResponseHeader('X-Current-Page');
-        const addBtn = document.getElementById('addProductBtn');
-
-        // Enable Add button only if table is loaded AND current page is 1
-        if (currentPage === '0') {
-            addBtn.disabled = false;
-            addBtn.style.display = 'inline-block';
-        } else {
-            addBtn.disabled = true;
-            addBtn.style.display = 'none';
-        }
-    }
 
     //generate by AI for make code more flexible and remove duplicates
 
-    // if (e.target.id === 'product-table') {
-    //     const currentPage = e.detail.xhr.getResponseHeader('X-Current-Page');
-    //     const addBtn = document.getElementById('addProductBtn');
-    //     const srhBtn = document.getElementById('searchProductBtn');
-    //
-    //     const isFirstPage = currentPage === '0';
-    //     const displayStyle = isFirstPage ? 'inline-block' : 'none';
-    //
-    //     [addBtn, srhBtn].forEach(btn => {
-    //         btn.disabled = !isFirstPage;
-    //         btn.style.display = displayStyle;
-    //     });
-    // }
+    if (e.target.id === 'product-table') {
+        const currentPage = e.detail.xhr.getResponseHeader('X-Current-Page');
+        const addBtn = document.getElementById('addProductBtn');
+        const srhBtn = document.getElementById('searchProductBtn');
+
+        const isFirstPage = currentPage === '0';
+        const displayStyle = isFirstPage ? 'inline-block' : 'none';
+
+        [addBtn, srhBtn].forEach(btn => {
+            btn.disabled = !isFirstPage;
+            btn.style.display = displayStyle;
+        });
+    }
 });
 
 document.body.addEventListener('htmx:afterRequest', function(event) {

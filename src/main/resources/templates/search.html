@@ -1,0 +1,32 @@
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+<div layout:fragment="content" class="flex">
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col">
+                <form id="searchForm" class="d-flex" onsubmit="return false;">
+                    <input
+                        class="form-control me-2"
+                        type="search"
+                        placeholder="Search by title..."
+                        aria-label="Search"
+                        name="q"
+                        hx-get="/products/table"
+                        hx-target="#product-table"
+                        hx-swap="innerHTML"
+                        hx-trigger="keyup changed delay:300ms, search">
+                </form>
+            </div>
+        </div>
+
+        <div id="product-table" style="margin-top: 1rem;"
+             hx-get="/products/table"
+             hx-target="#product-table"
+             hx-swap="innerHTML">
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

@@ -31,8 +31,7 @@
                     th:attr="hx-get=@{/products/table(page=0)}"
                     hx-target="#product-table"
                     hx-swap="innerHTML"
-                    hx-trigger="change"
-                    hx-include="#searchForm, this">
+                    hx-trigger="change">
                 <option value="10" th:selected="${page.pageSize == 10}">10</option>
                 <option value="25" th:selected="${page.pageSize == 25}">25</option>
                 <option value="50" th:selected="${page.pageSize == 50}">50</option>

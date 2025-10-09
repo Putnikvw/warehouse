@@ -5,7 +5,7 @@
 <div layout:fragment="content" class="flex">
     <div class="container">
         <div class="buttons-row">
-            <div class=>
+            <div>
                 <button
                         id="loadTableBtn"
                         class="btn btn-primary"
@@ -15,7 +15,7 @@
                     <i class="fas fa-download"></i> Load Products
                 </button>
             </div>
-            <div class=>
+            <div>
                 <button id="addProductBtn"
                         class="btn btn-success"
                         hx-get="/products/add"
@@ -26,18 +26,18 @@
                     + Add Product
                 </button>
             </div>
-<!--            // my change to show the buttton -->
-<!--            <div class=>-->
-<!--                <button id="searchProductBtn"-->
-<!--                        class="btn btn-sm btn-outline-success"-->
-<!--                        hx-get="/products/search"-->
-<!--                        hx-target="#product-table"-->
-<!--                        hx-swap="innerHTML"-->
-<!--                        style="display: none">-->
-<!--                    <i class="bi bi-plus-circle"></i>-->
-<!--                    Search Product-->
-<!--                </button>-->
-<!--            </div>-->
+<!--            // my change to show the button -->
+            <div class=>
+                <button id="searchProductBtn"
+                        class="btn btn-sm btn-outline-success"
+                        hx-get="/products/search"
+                        hx-target="#product-table"
+                        hx-swap="innerHTML"
+                        style="display: none">
+                    <i class="bi bi-plus-circle"></i>
+                    Search Product
+                </button>
+            </div>
         </div>
 
         <!-- Table will be dynamically inserted here -->
@@ -45,7 +45,6 @@
 
         <!--Show modal form-->
         <div id="modal-container"></div>
-
 
     </div>
 </div>
