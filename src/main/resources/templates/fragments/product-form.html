@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="modal fade" tabindex="-1" aria-hidden="true" id="productModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form th:action="@{/products}"
+                  th:object="${product}"
+                  hx-post="/products"
+                  hx-target="#product-table"
+                  hx-swap="innerHTML">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label>Title:</label><input type="text" th:field="*{title}" required>
+                    <label>Handle:</label><input type="text" th:field="*{handle}">
+                    <label>Product Type:</label><input type="text" th:field="*{productType}" required>
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6>Product Items</h6>
+                    </div>
+                    <div id="product-items" class="mt-2">
+                        <th:block th:each="item, iterStat : *{productItems}">
+                            <div th:replace="~{fragments/product-item-row :: itemRow(${iterStat.index}, ${item})}"></div>
+                        </th:block>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+            </form>
+
+        </div>
+    </div>
+</div>

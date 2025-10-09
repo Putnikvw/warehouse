@@ -1,0 +1,52 @@
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/index}">
+<body>
+<!-- Main Content -->
+<div layout:fragment="content" class="flex">
+    <div class="container">
+        <div class="buttons-row">
+            <div>
+                <button
+                        id="loadTableBtn"
+                        class="btn btn-primary"
+                        hx-get="/products/table"
+                        hx-target="#product-table"
+                        hx-swap="innerHTML">
+                    <i class="fas fa-download"></i> Load Products
+                </button>
+            </div>
+            <div>
+                <button id="addProductBtn"
+                        class="btn btn-success"
+                        hx-get="/products/add"
+                        hx-target="#modal-container"
+                        hx-swap="innerHTML"
+                        style="display: none">
+                    <i class="bi bi-plus-circle"></i>
+                    + Add Product
+                </button>
+            </div>
+<!--            // my change to show the button -->
+            <div class=>
+                <button id="searchProductBtn"
+                        class="btn btn-sm btn-outline-success"
+                        hx-get="/products/search"
+                        hx-target="#product-table"
+                        hx-swap="innerHTML"
+                        style="display: none">
+                    <i class="bi bi-plus-circle"></i>
+                    Search Product
+                </button>
+            </div>
+        </div>
+
+        <!-- Table will be dynamically inserted here -->
+        <div id="product-table" style="margin-top: 1rem;"></div>
+
+        <!--Show modal form-->
+        <div id="modal-container"></div>
+
+    </div>
+</div>
+</body>
+</html>

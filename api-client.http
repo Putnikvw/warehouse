@@ -1,0 +1,9 @@
+### GET products list from external API
+GET https://famme.no/products.json
+Content-Type: application/json
+
+
+
+### GET products list from app
+GET http://localhost:8080/products
+Accept: text/html
