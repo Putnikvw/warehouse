@@ -11,13 +11,8 @@ data class ProductDto(
     val productType: String?,
     val createdAt: LocalDateTime?,
     val updatedAt: LocalDateTime?,
-) {
-    data class ProductItemDto(
-        val id: BigInteger,
-        val title: String,
-        val price: BigDecimal,
-        val taxable: Boolean,
-        val featureImg: String?,
-        val productId: Long
-    )
-}
+    val itemTitle: String,
+    val itemPrice: BigDecimal,
+    val taxable: Boolean,
+    val featureImg: String?,
+)

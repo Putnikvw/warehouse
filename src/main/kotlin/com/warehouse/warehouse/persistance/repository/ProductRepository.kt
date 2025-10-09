@@ -2,6 +2,7 @@ package com.warehouse.warehouse.persistance.repository
 
 import com.warehouse.warehouse.persistance.domain.ProductDao
 import com.warehouse.warehouse.persistance.domain.ProductItemDao
+import com.warehouse.warehouse.service.WareHouseService.Companion.mapper
 import org.springframework.jdbc.core.simple.JdbcClient
 import org.springframework.stereotype.Repository
 import java.math.BigInteger
@@ -40,7 +41,7 @@ class ProductRepository(val jdbc: JdbcClient) {
         return jdbc.sql(
             """
             SELECT id, title, handle, product_type, created_at, updated_at
-            FROM product
+            FROM product ORDER BY title
             """
         ).query { rs, _ ->
             ProductDao(
@@ -50,7 +51,7 @@ class ProductRepository(val jdbc: JdbcClient) {
                 productType = rs.getString("product_type"),
                 createdAt = rs.getTimestamp("created_at")?.toLocalDateTime(),
                 updatedAt = rs.getTimestamp("updated_at")?.toLocalDateTime(),
-                productItems = mutableListOf() // empty by default
+                productItems = findItemsByProductId(rs.getLong("id"))
             )
         }
             .list()
@@ -102,14 +103,15 @@ class ProductRepository(val jdbc: JdbcClient) {
 
     fun saveItem(item: ProductItemDao): Long =
         jdbc.sql(
-            "INSERT INTO product_item(id, product_id, title, price, taxable) " +
-                    "VALUES(:id, :pid, :title, :price, :taxable) RETURNING id"
+            "INSERT INTO product_item(id, product_id, title, price, taxable, feature_img) " +
+                    "VALUES(:id, :pid, :title, :price, :taxable, CAST(:featureImg AS JSONB)) RETURNING id"
         )
             .param("id", item.id)
             .param("pid", item.productId)
             .param("title", item.title)
             .param("price", item.price)
             .param("taxable", item.taxable)
+            .param("featureImg", item.featureImg?.let { mapper.writeValueAsString(it) })
             .query(Long::class.java)
             .single()
 }

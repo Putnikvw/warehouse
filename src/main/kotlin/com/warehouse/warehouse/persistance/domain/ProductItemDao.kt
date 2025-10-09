@@ -9,7 +9,7 @@ data class ProductItemDao(
     val title: String,
     val price: BigDecimal,
     val taxable: Boolean,
-    val featureImg: String,
+    val featureImg: String?,
     val productId: BigInteger
 ) {
     override fun equals(other: Any?): Boolean {

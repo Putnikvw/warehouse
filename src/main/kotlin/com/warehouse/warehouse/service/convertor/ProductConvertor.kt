@@ -12,20 +12,23 @@ import java.time.LocalDateTime
 @Component
 class ProductConvertor {
 
-    fun toDto(product: ProductDao): ProductDto {
-        return ProductDto(
-            id = product.id,
-            title = product.title,
-            handle = product.handle,
-            productType = product.productType,
-            createdAt = product.createdAt,
-            updatedAt = product.updatedAt
-        )
-    }
-
-    fun toDtos(products: List<ProductDao>): List<ProductDto> {
-        return products.map { toDto(it) }
-    }
+    fun List<ProductDao>.toDtos(): List<ProductDto> =
+        this.flatMap { product ->
+            product.productItems.map { item ->
+                ProductDto(
+                    id = product.id,
+                    title = product.title,
+                    handle = product.handle,
+                    productType = product.productType,
+                    createdAt = product.createdAt,
+                    updatedAt = product.updatedAt,
+                    itemTitle = item.title,
+                    itemPrice = item.price.setScale(2),
+                    taxable = item.taxable,
+                    featureImg = item.featureImg
+                )
+            }
+        }
 
     fun toCreateProductDao(model: ProductModel, newId: BigInteger): ProductDao {
         return ProductDao(
@@ -38,7 +41,10 @@ class ProductConvertor {
         )
     }
 
-    fun toProductItemDao(itemModels: List<ProductModel.ProductItemModel>, newId: BigInteger): MutableList<ProductItemDao> {
+    fun toProductItemDao(
+        itemModels: List<ProductModel.ProductItemModel>,
+        newId: BigInteger
+    ): MutableList<ProductItemDao> {
         return itemModels.map { i ->
             ProductItemDao(
                 id = newId.inc(),

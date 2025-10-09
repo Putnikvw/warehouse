@@ -63,7 +63,20 @@ class ProductService(private val repo: ProductRepository, private val convertor:
     }
 
     fun getAllPaginated(page: Int, pageSize: Int): PageableWrapper<ProductDto> {
-        val allProducts = convertor.toDtos(getAll())
+        val products = getAll()
+        val allProducts = convertor.run { products.toDtos() }
+        return paginate(allProducts, page, pageSize)
+    }
+
+    // created by AI
+    fun getAllPaginatedSearch(page: Int, pageSize: Int, q: String): PageableWrapper<ProductDto> {
+        val products = getAll()
+        val allProducts = convertor.run { products.toDtos() }
+        val filtered = if (q.isBlank()) allProducts else allProducts.filter { it.title?.contains(q, ignoreCase = true) == true }
+        return paginate(filtered, page, pageSize)
+    }
+
+    private fun paginate(allProducts: List<ProductDto>, page: Int, pageSize: Int): PageableWrapper<ProductDto> {
         val totalElements = allProducts.size
         val totalPages = if (totalElements == 0) 1 else (totalElements + pageSize - 1) / pageSize
 

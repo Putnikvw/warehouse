@@ -61,7 +61,7 @@ class WarehouseControllerTest {
         )
             .andExpect(status().isOk)
             .andExpect(view().name("fragments/product-table"))
-            .andExpect(model().attribute("columns", listOf("Title", "Handle", "Product Type")))
+            .andExpect(model().attribute("columns", listOf("Title", "Handle", "Product Type",  "Product Item Title", "Price", "Taxable")))
             .andExpect(model().attribute("page", pageableWrapper))
             .andExpect(header().string("X-Current-Page", "0"))
 

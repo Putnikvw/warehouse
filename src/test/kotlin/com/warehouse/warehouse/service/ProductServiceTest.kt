@@ -3,6 +3,7 @@ package com.warehouse.warehouse.service
 import com.warehouse.warehouse.data.ProductDataGenerator.createProductDao
 import com.warehouse.warehouse.data.ProductDataGenerator.createProductDto
 import com.warehouse.warehouse.data.ProductDataGenerator.createProductModel
+import com.warehouse.warehouse.persistance.domain.ProductDao
 import com.warehouse.warehouse.persistance.repository.ProductRepository
 import com.warehouse.warehouse.service.convertor.ProductConvertor
 import io.mockk.*
@@ -173,7 +174,7 @@ class ProductServiceTest {
         val productDtos = listOf(createProductDto(ONE))
 
         every { repo.findAll() } returns products
-        every { convertor.toDtos(products) } returns productDtos
+        every { convertor.run { products.toDtos() } } returns productDtos
 
         // When
         val result = productService.getAllPaginated(0, 10)
@@ -194,7 +195,7 @@ class ProductServiceTest {
     fun `getAllPaginated should return empty list when no products exist`() {
         // Given
         every { repo.findAll() } returns emptyList()
-        every { convertor.toDtos(emptyList()) } returns emptyList()
+        every { convertor.run { any<List<ProductDao>>().toDtos() } } returns emptyList()
 
         // When
         val result = productService.getAllPaginated(0, 10)

@@ -1,5 +1,5 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<div id="productTable">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div id="product-table">
     <table>
         <thead>
         <tr>
@@ -13,6 +13,9 @@
             <td th:text="${product.title}"></td>
             <td th:text="${product.handle}"></td>
             <td th:text="${product.productType}"></td>
+            <td th:text="${product.itemTitle}"></td>
+            <td th:text="${product.itemPrice}"></td>
+            <td th:text="${product.taxable}"></td>
         </tr>
         </tbody>
     </table>
@@ -29,7 +32,7 @@
                     hx-target="#product-table"
                     hx-swap="innerHTML"
                     hx-trigger="change"
-                    hx-include="this">
+                    hx-include="#searchForm, this">
                 <option value="10" th:selected="${page.pageSize == 10}">10</option>
                 <option value="25" th:selected="${page.pageSize == 25}">25</option>
                 <option value="50" th:selected="${page.pageSize == 50}">50</option>
@@ -44,6 +47,7 @@
                     th:attr="hx-get=@{/products/table(page=${page.currentPage - 1},pageSize=${page.pageSize})}"
                     hx-target="#product-table"
                     hx-swap="innerHTML"
+                    hx-include="#searchForm"
                     th:disabled="${page.currentPage == 0}">
                 Previous
             </button>
@@ -56,6 +60,7 @@
                     th:attr="hx-get=@{/products/table(page=${page.currentPage + 1},pageSize=${page.pageSize})}"
                     hx-target="#product-table"
                     hx-swap="innerHTML"
+                    hx-include="#searchForm"
                     th:disabled="${page.currentPage + 1 >= page.totalPages}">
                 Next
             </button>

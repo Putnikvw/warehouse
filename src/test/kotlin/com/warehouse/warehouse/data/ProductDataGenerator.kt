@@ -3,6 +3,7 @@ package com.warehouse.warehouse.data
 import com.warehouse.warehouse.controller.model.ProductModel
 import com.warehouse.warehouse.persistance.domain.ProductDao
 import com.warehouse.warehouse.service.data.ProductDto
+import java.math.BigDecimal
 import java.math.BigInteger
 import java.time.LocalDateTime
 
@@ -32,6 +33,10 @@ object ProductDataGenerator {
         handle = "test-product",
         productType = "Electronics",
         createdAt = LocalDateTime.now().minusDays(2),
-        updatedAt = LocalDateTime.now()
+        updatedAt = LocalDateTime.now(),
+        itemTitle = "White / L",
+        itemPrice = BigDecimal.valueOf(134.5),
+        taxable = false,
+        featureImg = "test"
     )
 }
